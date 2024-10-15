@@ -18,12 +18,15 @@ public class TowerSpawnPanel : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.AddListener(gameObject, OnTowerButtonClicked);
+        EventManager.Instance.onTowerButtonClick.AddListener(OnTowerButtonClicked);
         DisplayTowerButtons();
     }
 
-    private void OnTowerButtonClicked(TowerSpawnButton clickedButton)
+    private void OnTowerButtonClicked(TowerData towerData)
     {
+        Debug.Log("타워 패널 버튼 이벤트 실행됨");
+
+
         // 현재 타워 생성 상태가 아닐 때 <- towerSpawnButtonClicked는 임시 변수임. 상태 확인은 따로 구현할 것.
         if (towerSpawnButtonClicked == false)
         {
@@ -41,7 +44,7 @@ public class TowerSpawnPanel : MonoBehaviour
     {
         if (towerDatas.Length > buttons.Length)
         {
-            Debug.LogError("타워 데이터의 정보가 버튼 개수보다 많아 정보를 할당할 수 없노.");
+            Debug.LogError("타워 데이터의 정보가 버튼 개수보다 많아 정보를 할당할 수 없습니다.");
             return;
         }
         for (int i = 0; i < towerDatas.Length; i++)
@@ -54,7 +57,7 @@ public class TowerSpawnPanel : MonoBehaviour
     {
         foreach (var button in buttons)
         {
-            button.SetButtonImageEmpty();
+            button.SetButtonData(null);
             button.SetInteractable(false);
         }
         buttons[0].SetButtonImage(cancelImage);

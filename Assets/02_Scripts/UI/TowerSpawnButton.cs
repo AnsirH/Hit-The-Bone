@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TowerSpawnButton : ButtonBase
 {
+    [SerializeField]
     private TowerData towerData;
     [SerializeField]
     private Image buttonImage;

@@ -32,7 +32,11 @@ public class Singleton<T> : MonoBehaviour where T : Component
         }
         else
         {
-            Destroy(gameObject);
+            if (instance != this)
+            {
+                Debug.Log($"{gameObject.name} ªË¡¶");
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -8,15 +8,11 @@ public class TowerInstaller : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.AddListener(gameObject, OnTowerSpawnButtonClicked);
+        EventManager.Instance.onTowerButtonClick.AddListener(OnTowerSpawnButtonClicked);
     }
 
-    private void OnTowerSpawnButtonClicked(TowerSpawnButton clickedButton)
+    private void OnTowerSpawnButtonClicked(TowerData towerData)
     {
-        if (clickedButton.IsValid == false)
-        {
-            currentTowerData = null;
-        }
-        currentTowerData = clickedButton.TowerData;
+        currentTowerData = towerData;
     }
 }

@@ -210,5 +210,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5767661312992094191}
-  towerData: {fileID: 0}
   buttonImage: {fileID: 8315836434455856478}
