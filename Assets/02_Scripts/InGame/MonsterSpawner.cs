@@ -7,6 +7,8 @@ public class MonsterSpawner : MonoBehaviour
 {
     public SplineContainer spline;
 
+    public string spawnMonsterName;
+
     public float spawnDelay = 0.1f;
 
     private void Update()
@@ -21,7 +23,8 @@ public class MonsterSpawner : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            Monster monster = ObjectPooler.Instance.SpawnFromPool<Monster>("Monster", Vector3.zero);
+            GameObject monsterObj = ObjectPooler.Instance.SpawnFromPool(spawnMonsterName, Vector3.zero);
+            Monster monster = EntityManager.Instance.GetEntity(monsterObj) as Monster;
             monster.splineAnimate.Container = spline;
             yield return new WaitForSeconds(spawnDelay);
         }

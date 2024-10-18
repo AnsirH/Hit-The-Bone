@@ -12,6 +12,11 @@ public class Tower : EntityBase
     [Header("Base Rotation Transform"), SerializeField]
     Transform baseRotation;
 
+    [Header("Weapon"), SerializeField]
+    private WeaponBase weapon;
+
+    public WeaponBase Weapon => weapon;
+
     public enum CooldownState
     {
         Attack = 0b00000001,
@@ -36,13 +41,15 @@ public class Tower : EntityBase
     // Start is called before the first frame update
     void Awake()
     {
-        stat = new TowerStats(data.attack, data.attackSpeed, data.range);
+        stat = new TowerStats(data.Attack, data.AttackSpeed, data.Range);
         stateMachine = new TowerStateMachine();
         states[(int)State.Idle] = new TowerIdleState();
         states[(int)State.Attackable] = new TowerAttackableState();
         states[(int)State.Attack] = new TowerAttackState();
 
         stateMachine.SetUp(this, states[(int)State.Idle]);
+
+        weapon.SetData(this);
     }
 
     // Update is called once per frame
@@ -53,14 +60,6 @@ public class Tower : EntityBase
         CheckCooldown();
 
         stateMachine.Updated();
-        if (IsAttackable)
-        {
-            Debug.Log("공격 가능 상태");
-        }
-        else
-        {
-            Debug.Log("공격 쿨타임 중");
-        }
     }
 
     private void LateUpdate()
@@ -73,9 +72,9 @@ public class Tower : EntityBase
         stateMachine.FixedUpdated();
     }
 
-    protected override List<EntityBase> GetEntitiesAround(float range)
+    protected override List<EntityBase> GetAroundEntities(float range)
     {
-        List<EntityBase> returnList = base.GetEntitiesAround(range);
+        List<EntityBase> returnList = base.GetAroundEntities(range);
         if (returnList == null)
         {
             return null;
@@ -93,7 +92,7 @@ public class Tower : EntityBase
 
     public Monster GetNearstMonster()
     {
-        List<EntityBase> nearMonsters = GetEntitiesAround(stat.GetStat("Range"));
+        List<EntityBase> nearMonsters = GetAroundEntities(stat.GetStat("Range"));
         if (nearMonsters == null || nearMonsters.Count == 0)
         {
             return null;

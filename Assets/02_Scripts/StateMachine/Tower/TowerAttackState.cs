@@ -7,10 +7,9 @@ public class TowerAttackState : StateBase<Tower>
 {
     public override void EnterState(Tower entity)
     {
-        Debug.Log(entity.name + " 공격 개시");
         if (entity.Target != null)
         {
-            entity.Target.Hit(entity);
+            entity.Weapon.Fire(entity.Target);
             entity.StartCooldown(Tower.CooldownState.Attack);
         }
 

@@ -216,7 +216,7 @@ MonoBehaviour:
           z: 0
           w: 0.012585431
     - Position:
-        x: -4.4244695
+        x: -4.5
         y: 1
         z: 1.5
       TangentIn:

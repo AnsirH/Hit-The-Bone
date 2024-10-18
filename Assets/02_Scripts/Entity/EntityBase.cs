@@ -25,13 +25,14 @@ public class EntityBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         Init();
-        EntityManager.Instance.AddSpawnedEntity(this);
+        EntityManager.Instance.AddEntity(this);
     }
 
     protected virtual void OnDisable()
     {
-        ObjectPooler.Instance.ReturnToPool(gameObject);
-        EntityManager.Instance.RemoveDisabledEntity(this);
+        EntityManager.Instance.RemoveEntity(this);
+
+        ObjectPooler.Instance.ReturnToPool(gameObject);        
         CancelInvoke();
     }
 
@@ -45,7 +46,7 @@ public class EntityBase : MonoBehaviour
 
     }
     
-    protected virtual List<EntityBase> GetEntitiesAround(float range)
+    protected virtual List<EntityBase> GetAroundEntities(float range)
     {
         if (range <= 0)
         {
@@ -53,7 +54,7 @@ public class EntityBase : MonoBehaviour
             return null;
         }
 
-        List<EntityBase> entities = EntityManager.Instance.GetEntitiesAround(this, range);
+        List<EntityBase> entities = EntityManager.Instance.GetAroundEntities(this, range);
 
         return entities;
     }

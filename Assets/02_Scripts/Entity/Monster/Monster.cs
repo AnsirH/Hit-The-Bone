@@ -7,11 +7,12 @@ public class Monster : EntityBase
 {
     public SplineAnimate splineAnimate;
 
-    int hitCount = 0;
+    [SerializeField]
+    MonsterData data;
 
     private void Awake()
     {
-        stat = new MonsterStats(10, 10, 1);
+        stat = new MonsterStats(data.Hp, data.Defense, data.Speed);
         if (splineAnimate.Container == null)
         {
             splineAnimate.enabled = false;
@@ -59,7 +60,37 @@ public class Monster : EntityBase
         }
     }
 
-    public void Hit(EntityBase sender)
+    public void Hit(Tower sender)
+    {
+        float damage = sender.Stat.GetStat("Attack") - stat.GetStat("Defense");
+
+        if (damage < 0) damage = 1;
+
+        stat.AddBuff(0, sender.name, name, "Hp", false, -damage);
+        Debug.Log($"{gameObject.name}이 {sender.name}로부터 데미지 {damage}를 받았습니다.");
+
+        if (stat.GetStat("Hp") <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Hit(Tower sender, float ratio)
+    {
+        float damage = sender.Stat.GetStat("Attack") * ratio - stat.GetStat("Defense");
+
+        if (damage < 0) damage = 1;
+
+        stat.AddBuff(0, sender.name, name, "Hp", false, -damage);
+        Debug.Log($"{gameObject.name}이 {sender.name}로부터 데미지 {damage}를 받았습니다.");
+
+        if (stat.GetStat("Hp") <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
     {
         gameObject.SetActive(false);
     }

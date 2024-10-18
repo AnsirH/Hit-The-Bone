@@ -10050,7 +10050,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7680e79a11fb5b748bb9ef5fe4456550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   baseRotation: {fileID: 7706041130216108149}
+  weapon: {fileID: 0}
   Target: {fileID: 0}
 --- !u!1 &2314989997810044639
 GameObject:

@@ -19,7 +19,7 @@ public class TowerSpawnButton : ButtonBase
         base.Awake();
         if (towerData != null)
         {
-            SetButtonImage(towerData.icon);
+            SetButtonImage(towerData.Icon);
         }
     }
 
@@ -37,7 +37,7 @@ public class TowerSpawnButton : ButtonBase
             return;
         }
         towerData = newTowerData;
-        SetButtonImage(towerData.icon);
+        SetButtonImage(towerData.Icon);
         SetInteractable(true);
     }
 

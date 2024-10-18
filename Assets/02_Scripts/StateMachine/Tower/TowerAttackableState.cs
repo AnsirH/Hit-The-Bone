@@ -8,7 +8,6 @@ public class TowerAttackableState : StateBase<Tower>
 
     public override void EnterState(Tower entity)
     {
-        Debug.Log(entity.name + " 공격 가능 상태 돌입.");
     }
 
     public override void Execute_Update(Tower entity)
