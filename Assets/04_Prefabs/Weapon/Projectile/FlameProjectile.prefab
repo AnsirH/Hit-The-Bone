@@ -125,7 +125,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   speed: 20
-  flameRange: 1.5
+  installationRange: 2
+  spawnTileName: FlameAreaTile
   tileLayer:
     serializedVersion: 2
     m_Bits: 64

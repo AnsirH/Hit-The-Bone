@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -9,6 +10,8 @@ public class Monster : EntityBase
 
     [SerializeField]
     MonsterData data;
+
+    private float dotDamageTickTimer = 0;
 
     private void Awake()
     {
@@ -22,13 +25,24 @@ public class Monster : EntityBase
             splineAnimate.enabled = true;
         }
     }
-    // Update is called once per frame
+    // Update is called once per frame 업데이는 프레임 하나당 한 번 호출됩니다.
     protected override void Update()
     {
         base.Update();
         if (splineAnimate.NormalizedTime >= 1.0f)
         {
             gameObject.SetActive(false);
+        }
+
+        if (dotDamageTickTimer >= 0.5f)
+        {
+            stat.AddBuff(0, null, this, "Hp", false, stat.GetTotalDotDamage());
+            //Hit()
+            dotDamageTickTimer = 0;
+        }
+        else
+        {
+            dotDamageTickTimer += Time.deltaTime;
         }
     }
 
@@ -42,16 +56,17 @@ public class Monster : EntityBase
     {
         base.OnEnable();
         splineAnimate.enabled = true;
-
+        splineAnimate.MaxSpeed = stat.GetStat("Speed");
+        Debug.Log("몬스터 스피드 설정 : " + stat.GetStat("Speed"));
     }
 
     public override void Init()
     {
         base.Init();
-        // 스탯 초기화
-        stat = new MonsterStats(10, 10, 1);
+        // 스탯 초기화 해버려
+        stat = new MonsterStats(data.Hp, data.Defense, data.Speed);
 
-        // Spline Animate 초기화
+        // Spline Animate 초기화 해버려
         splineAnimate.MaxSpeed = stat.GetStat("Speed");
         splineAnimate.ElapsedTime = 0.0f;
         if (splineAnimate.Container != null && !splineAnimate.IsPlaying)
@@ -66,7 +81,7 @@ public class Monster : EntityBase
 
         if (damage < 0) damage = 1;
 
-        stat.AddBuff(0, sender.name, name, "Hp", false, -damage);
+        stat.AddBuff(0, sender, this, "Hp", false, -damage);
         Debug.Log($"{gameObject.name}이 {sender.name}로부터 데미지 {damage}를 받았습니다.");
 
         if (stat.GetStat("Hp") <= 0)
@@ -81,7 +96,7 @@ public class Monster : EntityBase
 
         if (damage < 0) damage = 1;
 
-        stat.AddBuff(0, sender.name, name, "Hp", false, -damage);
+        stat.AddBuff(0, sender, this, "Hp", false, -damage);
         Debug.Log($"{gameObject.name}이 {sender.name}로부터 데미지 {damage}를 받았습니다.");
 
         if (stat.GetStat("Hp") <= 0)

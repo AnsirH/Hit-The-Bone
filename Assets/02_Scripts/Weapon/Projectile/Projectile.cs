@@ -51,16 +51,22 @@ public class Projectile : MonoBehaviour
             {
                 gameObject.SetActive(false);
             }
-            Collider[] colliders = Physics.OverlapSphere(transform.position, coll.radius, monsterLayer);
-            foreach (Collider collider in colliders)
+
+            Monster[] collidedMonsters = ComponentManager.Instance.ManagedEntities.GetAroundMonsters(transform, coll.radius);
+
+            if (collidedMonsters.Length == 0)
             {
-                if (collider.CompareTag("Monster") && receiver == EntityManager.Instance.GetEntity(collider.gameObject))
+                return;
+            }
+            foreach (Monster monster in collidedMonsters)
+            {
+                if (receiver == monster)
                 {
                     CollisionAction();
                     gameObject.SetActive(false);
                 }
             }
-        }        
+        }
     }
 
     public void SetData(Tower sender, Monster receiver)
@@ -69,6 +75,9 @@ public class Projectile : MonoBehaviour
         this.receiver = receiver;
     }
 
+    /// <summary>
+    /// Projectile이 적과 충돌 시 동작할 액션을 정의합니다.
+    /// </summary>
     protected virtual void CollisionAction()
     {
         receiver.Hit(sender);

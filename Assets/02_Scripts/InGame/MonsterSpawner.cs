@@ -24,7 +24,7 @@ public class MonsterSpawner : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             GameObject monsterObj = ObjectPooler.Instance.SpawnFromPool(spawnMonsterName, Vector3.zero);
-            Monster monster = EntityManager.Instance.GetEntity(monsterObj) as Monster;
+            Monster monster = ComponentManager.Instance.ManagedEntities.GetEntity(monsterObj) as Monster;
             monster.splineAnimate.Container = spline;
             yield return new WaitForSeconds(spawnDelay);
         }

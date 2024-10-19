@@ -24,7 +24,7 @@ public class FlameAreaTile : EffectiveAreaTile
 
             foreach (Collider collider in monsterCollider)
             {
-                Monster monster = EntityManager.Instance.IdToEntity[collider.gameObject.GetInstanceID()] as Monster;
+                Monster monster = ComponentManager.Instance.ManagedEntities.GetEntity(collider.gameObject) as Monster;
                 monster.Hit(ownerTower, damageRatio);
             }
 

@@ -9,7 +9,7 @@ public class ExplosionProjectile : Projectile
     protected override void CollisionAction()
     {
         base.CollisionAction();
-        Monster[] monsters = EntityManager.Instance.GetAroundMonsters(sender, explosionRange);
+        Monster[] monsters = ComponentManager.Instance.ManagedEntities.GetAroundMonsters(transform, explosionRange);
         foreach (Monster monster in monsters)
         {
             monster.Hit(sender);

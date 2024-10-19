@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: Flame Tower
   Icon: {fileID: 21300000, guid: 84c8fb2067d426448947928dd855bee7, type: 3}
   Attack: 10
-  AttackSpeed: 0.5
+  AttackSpeed: 0.1
   Range: 3

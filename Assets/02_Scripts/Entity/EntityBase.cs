@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public interface IDetectable
-{
-    EntityBase[] GetEntitiesAround();
-}
-
 /// <summary>
 /// 몬스터와 타워가 상속받는 스크립트. 게임 내 엔티티는 타워와 몬스터를 지칭한다.
 /// </summary>
@@ -25,12 +20,12 @@ public class EntityBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         Init();
-        EntityManager.Instance.AddEntity(this);
+        ComponentManager.Instance.ManagedEntities.AddEntity(this);
     }
 
     protected virtual void OnDisable()
     {
-        EntityManager.Instance.RemoveEntity(this);
+        ComponentManager.Instance.ManagedEntities.RemoveEntity(this);
 
         ObjectPooler.Instance.ReturnToPool(gameObject);        
         CancelInvoke();
@@ -54,7 +49,7 @@ public class EntityBase : MonoBehaviour
             return null;
         }
 
-        List<EntityBase> entities = EntityManager.Instance.GetAroundEntities(this, range);
+        List<EntityBase> entities = ComponentManager.Instance.ManagedEntities.GetAroundEntities(this, range);
 
         return entities;
     }

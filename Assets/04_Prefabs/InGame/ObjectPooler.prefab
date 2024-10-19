@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8892008960955930883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4735401595693306143}
+  - component: {fileID: 3543746995934476921}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4735401595693306143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892008960955930883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01529458, y: 10.361106, z: -3.6641562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3543746995934476921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892008960955930883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07abaea46231174faab2dc008f710e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Repeater Tower
+    prefab: {fileID: 3529750741828329960, guid: 2c709f69dc34a1f4080c9efa85dda23b, type: 3}
+    size: 2
+  - tag: Sniper Tower
+    prefab: {fileID: 9213993765301486940, guid: dbc88bca05974614489cd2ca2da400fe, type: 3}
+    size: 2
+  - tag: Shotgun Tower
+    prefab: {fileID: 37294387874628469, guid: 934990e051d6bd840bd45793e180814e, type: 3}
+    size: 2
+  - tag: Cannon Tower
+    prefab: {fileID: 7477401161098503233, guid: 7ebb10bee72f1634992576a7b78a47ef, type: 3}
+    size: 2
+  - tag: Flame Tower
+    prefab: {fileID: 8459137192499653054, guid: ccf534e8f67f00440a17dc7292409bee, type: 3}
+    size: 2
+  - tag: Poison Tower
+    prefab: {fileID: 4090626167923888844, guid: eb7d06130f2cd5146bed2b34fe104bef, type: 3}
+    size: 2
+  - tag: Projectile
+    prefab: {fileID: 747908925202692472, guid: 234aa7f543c091e45982369d167b8f12, type: 3}
+    size: 2
+  - tag: FlameProjectile
+    prefab: {fileID: 2664627177755629127, guid: 4beff421a4d7a5440b3a0499f6f46dcf, type: 3}
+    size: 2
+  - tag: Explosion Projectile
+    prefab: {fileID: 1594795682976062769, guid: 0ebfdcb22129d3a4da01b8a31da9a9e6, type: 3}
+    size: 2
+  - tag: PoisonProjectile
+    prefab: {fileID: 2664627177755629127, guid: 44ee09abce27418438620cd1f34eec80, type: 3}
+    size: 2
+  - tag: Wolf
+    prefab: {fileID: 4162379147375147420, guid: 94f8441b2f26e954caddf50c12e34a2d, type: 3}
+    size: 2
+  - tag: FlameAreaTile
+    prefab: {fileID: 3011716598399833959, guid: 3337c4648cd978e40babb581e58867a2, type: 3}
+    size: 2
+  - tag: PoisonAreaTile
+    prefab: {fileID: 5586542848396802227, guid: eff3c674b69d72a46af46669187314ff, type: 3}
+    size: 2
