@@ -16,7 +16,7 @@ public class ManagedComponents<T> where T : Component
         int id = component.gameObject.GetInstanceID();
         if (idToComponent.ContainsKey(id))
         {
-            Debug.LogError($"이미 등록된 {nameof(T)}입니다. 추가할 수 없습니다.");
+            Debug.LogError($"이미 등록된 {nameof(component)}입니다. 추가할 수 없습니다.");
             return;
         }
         else

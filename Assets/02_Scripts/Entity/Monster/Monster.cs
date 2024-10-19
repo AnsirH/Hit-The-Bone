@@ -7,7 +7,7 @@ using UnityEngine.Splines;
 public class Monster : EntityBase
 {
     public SplineAnimate splineAnimate;
-
+    public MonsterStats Stats => stat as MonsterStats;
     [SerializeField]
     MonsterData data;
 
@@ -34,16 +34,7 @@ public class Monster : EntityBase
             gameObject.SetActive(false);
         }
 
-        if (dotDamageTickTimer >= 0.5f)
-        {
-            stat.AddBuff(0, null, this, "Hp", false, stat.GetTotalDotDamage());
-            //Hit()
-            dotDamageTickTimer = 0;
-        }
-        else
-        {
-            dotDamageTickTimer += Time.deltaTime;
-        }
+        Stats.CheckDotEffects(this);
     }
 
     protected override void OnDisable()

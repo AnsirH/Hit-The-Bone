@@ -30,27 +30,6 @@ namespace Stats
         }
     }
 
-    public struct DotDamageData
-    {
-        EntityBase sender;
-        EntityBase receiver;
-        GameObject medium;
-        float ratio;
-
-        public EntityBase Sender => sender;
-        public EntityBase Receiver => receiver;
-        public GameObject Medium => medium;
-        public float Ratio => ratio; 
-
-        public void SetData(EntityBase sender, EntityBase receiver, GameObject medium, float ratio)
-        {
-            this.sender = sender;
-            this.receiver = receiver;
-            this.medium = medium;
-            this.ratio = ratio;
-        }
-    }
-
     public class EntityStats
     {
         // 기본 스탯
@@ -63,16 +42,12 @@ namespace Stats
         // 버프 데이터 리스트
         protected SortedDictionary<float, BuffData> priorityEndBuff;
 
-        // 도드 데미지 데이터 리스트
-        protected SortedDictionary<float, DotDamageData> priorityEndDotDamage;
-
         // 생성자로 스탯의 종류를 받지 말고 그냥 스탯 종류를 추가할 수 있는 함수를 만들어 추가할 것
         public EntityStats()
         {
             priorityEndBuff = new SortedDictionary<float, BuffData>();
-            priorityEndDotDamage = new SortedDictionary<float, DotDamageData>();
         }
-
+        
         /// <summary>
         /// 버프 생성
         /// </summary>
@@ -115,31 +90,6 @@ namespace Stats
             }
         }
 
-        public void AddDotDamage(float duration, EntityBase sender, EntityBase receiver, GameObject medium, float ratio)
-        {
-            if (duration <= 0)
-            {
-                return;
-            }
-            foreach(DotDamageData dotDamageData in priorityEndDotDamage.Values)
-            {
-                if (dotDamageData.Sender == sender && dotDamageData.Medium == medium)
-                {
-                    return;
-                }
-            }
-
-            DotDamageData dotDamage = new DotDamageData();
-            dotDamage.SetData(sender, receiver, medium, ratio);
-            priorityEndDotDamage.Add(Time.time + duration, dotDamage);
-        }
-
-        private void EndDotDamage(DotDamageData dotDamageData)
-        {
-
-        }
-
-
         private void AddStat(string stat, float value)
         {
             addedStats[stat] += value;
@@ -159,41 +109,14 @@ namespace Stats
             {
                 foreach (KeyValuePair<float, BuffData> entity in priorityEndBuff)
                 {
-                    if (entity.Key >= Time.time)
+                    if (entity.Key < Time.time)
                     {
                         EndBuff(entity.Value);
                         priorityEndBuff.Remove(entity.Key);
                     }
                 }
             }
-
-            if (priorityEndDotDamage.Count > 0)
-            {
-                foreach (KeyValuePair<float, DotDamageData> entity in priorityEndDotDamage)
-                {
-                    if (entity.Key >= Time.time)
-                    {
-                        EndDotDamage(entity.Value);
-                        priorityEndBuff.Remove(entity.Key);
-                    }
-                }
-            }
         }
-
-        public float GetTotalDotDamage()
-        {
-            float totalDotDamage = 0f;
-            if (priorityEndDotDamage.Count > 0)
-            {
-                foreach(DotDamageData dotDamageData in priorityEndDotDamage.Values)
-                {
-                    totalDotDamage += dotDamageData.Sender.Stat.GetStat("Attack") * dotDamageData.Ratio;
-                }
-            }
-
-            return totalDotDamage;
-        }
-
         public float GetStat(string stat)
         {
             float defaultStat = defaultStats[stat];

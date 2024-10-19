@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileData: {fileID: 8056667940793938178}
   effectApplyTerm: 0.75
-  damageRatio: 0.05
+  damageRatio: 0.5
   monsterLayer:
     serializedVersion: 2
     m_Bits: 128
